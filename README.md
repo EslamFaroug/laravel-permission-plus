@@ -32,7 +32,7 @@
 - **Multilingual content** (JSON columns for Arabic, English, French, etc.)
 - **Polymorphic relationships** (assign to any Eloquent model)
 - **Group-based access control** (organize users into teams)
-- **Automatic caching** (performance optimization)
+- **High performance** (optimized queries and relationships)
 - **Multi-guard support** (web, API, admin, etc.)
 
 Perfect for applications requiring sophisticated access control with internationalization support.
@@ -46,7 +46,7 @@ Perfect for applications requiring sophisticated access control with internation
 | 🔐 **Advanced RBAC** | Complete permission, role, and group management |
 | 🌍 **Multilingual** | JSON columns for name/description in multiple languages |
 | 🔗 **Polymorphic** | Assign permissions to any model (User, Employee, Client) |
-| ⚡ **Auto-caching** | Intelligent cache management with auto-clear |
+| ⚡ **High Performance** | Optimized queries and efficient relationships |
 | 🎯 **Simple API** | Easy-to-use Traits, Facades, and Helper functions |
 | 🛡️ **Multi-guard** | Support for different authentication contexts |
 | 🔧 **Extensible** | Fully customizable tables, models, and relationships |

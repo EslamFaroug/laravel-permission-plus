@@ -32,5 +32,5 @@ class AccessControlManager
     public function guards() : PermissionGuardRepository
     {
         return $this->guards;
-    }   
+    }
 }
