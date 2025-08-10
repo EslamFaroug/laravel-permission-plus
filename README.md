@@ -6,242 +6,402 @@
 
 **Author:** [Eslam Faroug](mailto:eslamfaroug3@gmail.com)
 
+---
 
-An advanced permission, role, and group management system for Laravel (RBAC + group-based access) with multilingual support, polymorphic relationships, and caching.
+## 📚 Table of Contents
+
+- [🚀 Introduction](#-introduction)
+- [✨ Key Features](#-key-features)
+- [📖 Documentation](#-documentation)
+- [⚙️ Installation](#️-installation)
+- [🔧 Core Components](#-core-components)
+- [🎯 Quick Start Guide](#-quick-start-guide)
+- [📋 Basic Usage Examples](#-basic-usage-examples)
+- [🔄 CRUD Operations](#-crud-operations)
+- [🌐 Advanced Features](#-advanced-features)
+- [🔗 Customization & Integration](#-customization--integration)
+- [📝 Contributing](#-contributing)
+- [📄 License](#-license)
 
 ---
 
-## Introduction
+## 🚀 Introduction
 
-**laravel-permission-plus** is a powerful package for managing permissions, roles, and groups in Laravel applications. It features full multilingual support, polymorphic relationships, automatic caching, and high customizability. Build flexible and complex access control systems with ease.
+**Laravel Permission Plus** is an advanced, flexible, and multilingual package for managing permissions, roles, and groups in Laravel applications. It provides a comprehensive RBAC (Role-Based Access Control) system with support for:
 
----
+- **Multilingual content** (JSON columns for Arabic, English, French, etc.)
+- **Polymorphic relationships** (assign to any Eloquent model)
+- **Group-based access control** (organize users into teams)
+- **Automatic caching** (performance optimization)
+- **Multi-guard support** (web, API, admin, etc.)
 
-## Key Features
-
-- Advanced management for permissions, roles, and groups
-- Full multilingual support (JSON columns)
-- Polymorphic relationships: assign permissions/roles/groups to any model
-- Automatic caching for high performance (auto-clear on changes)
-- Simple API (Traits, Facades, Services)
-- Multi-guard support
-- Fully customizable table/model names
-- Extensible and override-friendly
-- Nested/grouped access control
+Perfect for applications requiring sophisticated access control with internationalization support.
 
 ---
 
-## Core Components
+## ✨ Key Features
+
+| Feature | Description |
+|---------|-------------|
+| 🔐 **Advanced RBAC** | Complete permission, role, and group management |
+| 🌍 **Multilingual** | JSON columns for name/description in multiple languages |
+| 🔗 **Polymorphic** | Assign permissions to any model (User, Employee, Client) |
+| ⚡ **Auto-caching** | Intelligent cache management with auto-clear |
+| 🎯 **Simple API** | Easy-to-use Traits, Facades, and Helper functions |
+| 🛡️ **Multi-guard** | Support for different authentication contexts |
+| 🔧 **Extensible** | Fully customizable tables, models, and relationships |
+| 📱 **Modern** | Built for Laravel 8+ with modern PHP practices |
+
+---
+
+## 📖 Documentation
+
+This package includes comprehensive documentation organized by complexity level:
+
+| Document | Purpose | Best For |
+|----------|---------|----------|
+| **[📋 Usage Examples](docs/USAGE_EXAMPLES.md)** | Basic operations and common patterns | **Beginners** - Getting started |
+| **[📚 Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)** | Advanced features and complex scenarios | **Advanced users** - Mastering the package |
+| **[📖 README.md](README.md)** | Overview and CRUD operations | **Reference** - Quick lookups |
+
+---
+
+## ⚙️ Installation
+
+### 1. Install Package
+```bash
+composer require eslamfaroug/laravel-permission-plus
+```
+
+### 2. Publish Configuration
+```bash
+php artisan vendor:publish --provider="EslamFaroug\PermissionPlus\Providers\PermissionServiceProvider" --tag="permission-plus-config"
+php artisan vendor:publish --provider="EslamFaroug\PermissionPlus\Providers\PermissionServiceProvider" --tag="permission-plus-migrations"
+```
+
+### 3. Run Migrations
+```bash
+php artisan migrate
+```
+
+### 4. Verify Installation
+```bash
+composer test
+# or
+./vendor/bin/phpunit
+```
+
+---
+
+## 🔧 Core Components
 
 ### Models
-- **Permission**: Represents a single permission, multilingual name, linked to PermissionGuard and Roles
-- **Role**: Represents a role, multilingual name, linked to Permissions and Groups
-- **Group**: Represents a group (team, department, etc.), multilingual name/description, linked to members and roles
-- **PermissionGuard**: Permission guard (integrates with Laravel Auth)
+- **`Permission`** - Individual access rights
+- **`Role`** - Collections of permissions
+- **`Group`** - Collections of roles and users
+- **`PermissionGuard`** - Permission containers by context
 
 ### Traits
-- **HasAccessControl**: Adds assignment and checking of permissions/roles/groups to any model
-- **HasTranslatable**: Provides dynamic translation for attributes
+- **`HasAccessControl`** - Assign/check roles, permissions, groups
+- **`HasTranslatable`** - Automatic multilingual field handling
 
 ### Services
-- **AccessControlManager**: Central manager for repositories (Roles, Groups, Guards)
+- **`AccessControlManager`** - Central service for all operations
 
-### Facade
-- **Permission**: Unified interface for querying permissions, roles, and groups
+### API Access
+- **Helper Function**: `AccessControl()->roles()->list()`
+- **Facade**: `AccessControl::roles()->list()`
 
 ---
 
-## Usage Examples
+## 🎯 Quick Start Guide
 
+### Step 1: Add Trait to User Model
 ```php
-// Assign a role to a user
+<?php
+
+namespace App\Models;
+
+use EslamFaroug\PermissionPlus\Traits\HasAccessControl;
+
+class User extends Authenticatable
+{
+    use HasAccessControl;
+    
+    // ... rest of your model
+}
+```
+
+### Step 2: Basic Usage
+```php
+// Assign roles and permissions
 $user->assignRole('editor');
+$user->givePermissionTo('edit-posts');
 
-// Check for a permission
-$user->hasPermissionTo('edit-articles');
+// Check access
+if ($user->hasRole('admin')) {
+    // Admin actions
+}
 
-// Assign user to a group
+if ($user->hasPermissionTo('delete-posts')) {
+    // Delete post action
+}
+```
+
+### Step 3: Explore Documentation
+- **[📋 Usage Examples](docs/USAGE_EXAMPLES.md)** - Start here for basic patterns
+- **[📚 Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)** - Advanced features
+
+---
+
+## 📋 Basic Usage Examples
+
+> 💡 **For detailed examples and common patterns, see [Usage Examples](docs/USAGE_EXAMPLES.md)**
+
+### User Access Control
+```php
+// Assign roles and permissions
+$user->assignRole('editor');
+$user->givePermissionTo('edit-articles');
 $user->assignToGroups('content-team');
 
-// Get all permissions for a group
-$group->getAllPermissions();
+// Check permissions
+$user->hasRole('admin');                    // true/false
+$user->hasPermissionTo('delete-posts');     // true/false
+$user->inGroup('content-team');            // true/false
+
+// Get all permissions
+$permissions = $user->getAllPermissions();
+$roles = $user->getAllRoles();
+$groups = $user->getAllGroups();
 ```
 
----
-
-## Installation & Setup
-
-1. **Install via Composer**
-   ```bash
-   composer require eslamfaroug/laravel-permission-plus
-   ```
-2. **Publish config and migrations**
-   ```bash
-   php artisan vendor:publish --provider="EslamFaroug\\PermissionPlus\\Providers\\PermissionServiceProvider" --tag="permission-plus-config"
-   php artisan vendor:publish --provider="EslamFaroug\\PermissionPlus\\Providers\\PermissionServiceProvider" --tag="permission-plus-migrations"
-   ```
-3. **Run migrations**
-   ```bash
-   php artisan migrate
-   ```
-4. **Run tests**
-   ```bash
-   composer test
-   # or
-   ./vendor/bin/phpunit
-   ```
-
----
-
-## Customization & Integration
-
-- Change table/model names via `config/permission-plus.php`
-- Multi-guard support and Laravel Auth integration
-- All models are extendable/overridable
-- Cache is auto-cleared on any permission/role/group change
-- Always use provided methods (assignRole, hasPermissionTo, inGroup, etc.) to keep cache in sync
-- Full multilingual support for display names (e.g., `name['en']`, `name['ar']`)
-
----
-
-## Managing Guards, Roles, and Groups
-
-This package provides full CRUD (Create, Read, Update, Delete) operations for guards, roles, and groups, as well as listing and viewing details. You can manage them using Eloquent models, repositories, or the provided service/facade. Below are explanations and code examples for each:
-
-### Guards
-**Guards** define the context or authentication driver for permissions (e.g., 'web', 'api').
-
-#### List all guards
+### Role and Permission Management
 ```php
-use EslamFaroug\PermissionPlus\Models\PermissionGuard;
-$guards = PermissionGuard::all();
-// or via service
-$guards = app('permission-plus')->guards()->all();
-```
-
-#### Create a new guard
-```php
-$guard = PermissionGuard::create([
-    'name' => ['en' => 'Web', 'ar' => 'ويب'],
-    'key' => 'web',
-]);
-```
-
-#### Update a guard
-```php
-$guard = PermissionGuard::find(1);
-$guard->name = ['en' => 'API', 'ar' => 'واجهة برمجية'];
-$guard->save();
-```
-
-#### Delete a guard
-```php
-$guard = PermissionGuard::find(1);
-$guard->delete();
-```
-
-#### Show a guard
-```php
-$guard = PermissionGuard::find(1);
-```
-
----
-
-### Roles
-**Roles** are collections of permissions that can be assigned to users or groups.
-
-#### List all roles
-```php
-use EslamFaroug\PermissionPlus\Models\Role;
-$roles = Role::all();
-// or via service
-$roles = app('permission-plus')->roles()->all();
-```
-
-#### Create a new role
-```php
-$role = Role::create([
+// Create roles with permissions
+$role = AccessControl()->roles()->create([
     'name' => ['en' => 'Editor', 'ar' => 'محرر'],
     'key' => 'editor',
+    'permissions' => ['create-post', 'edit-post', 'delete-post']
+]);
+
+// Create permissions
+$permission = AccessControl()->guards()->create([
+    'name' => ['en' => 'Web Guard', 'ar' => 'حارس الويب'],
+    'key' => 'web',
+    'permissions' => [
+        ['name' => ['en' => 'View Posts', 'ar' => 'عرض المقالات'], 'key' => 'view-posts']
+    ]
 ]);
 ```
 
-#### Update a role
+---
+
+## 🔄 CRUD Operations
+
+The package provides a unified API for all CRUD operations through the `AccessControl` helper.
+
+### 🔍 List Operations
 ```php
-$role = Role::find(1);
-$role->name = ['en' => 'Admin', 'ar' => 'مدير'];
+// List with filters and relations
+$roles = AccessControl()->roles()->list(
+    ['key' => 'admin'],           // filters
+    ['permissions', 'groups'],     // relations
+    true                          // get data (false returns query builder)
+);
+
+// Get query builder for custom operations
+$query = AccessControl()->roles()->list([], [], false);
+$paginatedRoles = $query->paginate(15);
+```
+
+### ➕ Create Operations
+```php
+// Create role with permissions
+$role = AccessControl()->roles()->create([
+    'name' => ['en' => 'Content Manager', 'ar' => 'مدير المحتوى'],
+    'key' => 'content-manager',
+    'permissions' => ['create-post', 'edit-post', 'delete-post']
+]);
+
+// Create group with roles
+$group = AccessControl()->groups()->create([
+    'name' => ['en' => 'Content Team', 'ar' => 'فريق المحتوى'],
+    'key' => 'content-team',
+    'roles' => ['editor', 'reviewer', 'publisher']
+]);
+```
+
+### ✏️ Update Operations
+```php
+// Update with new data
+$role = AccessControl()->roles()->update(1, [
+    'name' => ['en' => 'Senior Editor', 'ar' => 'محرر أول'],
+    'permissions' => ['manage-content', 'approve-posts']
+]);
+
+// Direct model update
+$role = AccessControl()->roles()->show(1);
+$role->name = ['en' => 'Updated Name', 'ar' => 'اسم محدث'];
 $role->save();
 ```
 
-#### Delete a role
+### 🗑️ Delete Operations
 ```php
-$role = Role::find(1);
-$role->delete();
-```
+// Delete by ID
+$deleted = AccessControl()->roles()->delete(1);
 
-#### Show a role
-```php
-$role = Role::find(1);
+// Delete model
+$role = AccessControl()->roles()->show(1);
+$deleted = $role->delete();
 ```
 
 ---
 
-### Groups
-**Groups** represent teams, departments, or any logical grouping of users/models.
+## 🌐 Advanced Features
 
-#### List all groups
-```php
-use EslamFaroug\PermissionPlus\Models\Group;
-$groups = Group::all();
-// or via service
-$groups = app('permission-plus')->groups()->all();
-```
+> 💡 **For comprehensive examples and advanced patterns, see [Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)**
 
-#### Create a new group
+### Multilingual Support
 ```php
-$group = Group::create([
-    'name' => ['en' => 'Content Team', 'ar' => 'فريق المحتوى'],
-    'key' => 'content-team',
-    'description' => ['en' => 'Handles all content', 'ar' => 'يدير كل المحتوى'],
+// Set application locale
+app()->setLocale('ar');
+
+// Create multilingual entity
+$role = AccessControl()->roles()->create([
+    'name' => [
+        'en' => 'Content Editor',
+        'ar' => 'محرر المحتوى',
+        'fr' => 'Éditeur de contenu'
+    ],
+    'key' => 'content-editor'
 ]);
+
+// Access localized name
+echo $role->name; // Returns: محرر المحتوى (when locale is 'ar')
+
+// Get all translations
+$translations = $role->getTranslations('name');
 ```
 
-#### Update a group
+### Complex Queries
 ```php
-$group = Group::find(1);
-$group->name = ['en' => 'Marketing', 'ar' => 'تسويق'];
-$group->save();
+// Get roles with specific permissions
+$query = AccessControl()->roles()->list([], ['permissions'], false);
+$rolesWithEditPermission = $query->whereHas('permissions', function($q) {
+    $q->where('key', 'edit-post');
+})->get();
+
+// Get groups with admin roles
+$query = AccessControl()->groups()->list([], ['roles'], false);
+$groupsWithAdminRole = $query->whereHas('roles', function($q) {
+    $q->where('key', 'admin');
+})->get();
 ```
 
-#### Delete a group
+### Bulk Operations
 ```php
-$group = Group::find(1);
-$group->delete();
-```
+// Bulk create roles
+$roleData = [
+    ['name' => ['en' => 'User', 'ar' => 'مستخدم'], 'key' => 'user'],
+    ['name' => ['en' => 'Moderator', 'ar' => 'مشرف'], 'key' => 'moderator'],
+    ['name' => ['en' => 'Administrator', 'ar' => 'مدير'], 'key' => 'administrator']
+];
 
-#### Show a group
-```php
-$group = Group::find(1);
+foreach ($roleData as $data) {
+    AccessControl()->roles()->create($data);
+}
+
+// Bulk assign permissions
+$role = AccessControl()->roles()->show('admin');
+$permissions = ['manage-users', 'manage-roles', 'system-settings'];
+$role->permissions()->sync($permissions);
 ```
 
 ---
 
-### Notes
-- All CRUD operations support multilingual fields (arrays for `name`, `description`).
-- You can use Eloquent, the service (`app('permission-plus')`), or repositories for advanced queries.
-- Always clear cache after direct DB changes.
-- Use the provided methods for assignments and checks to ensure cache consistency.
+## 🔗 Customization & Integration
+
+### Configuration
+```php
+// config/permission-plus.php
+return [
+    'models' => [
+        'permission' => App\Models\CustomPermission::class,
+        'role' => App\Models\CustomRole::class,
+        'group' => App\Models\CustomGroup::class,
+        'guard' => App\Models\CustomGuard::class,
+    ],
+    'languages' => ['en', 'ar', 'fr', 'de'], // supported languages
+];
+```
+
+### Middleware Integration
+```php
+// routes/web.php
+Route::middleware(['auth'])->group(function () {
+    // Permission-based routes
+    Route::middleware(['permission:edit-post'])->group(function () {
+        Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
+        Route::put('/posts/{post}', [PostController::class, 'update']);
+    });
+
+    // Role-based routes
+    Route::middleware(['role:admin'])->group(function () {
+        Route::resource('users', UserController::class);
+    });
+});
+```
+
+### Blade Templates
+```php
+{{-- Check permissions in views --}}
+@if(auth()->user()->hasPermissionTo('edit-posts'))
+    <a href="{{ route('posts.edit', $post) }}">Edit Post</a>
+@endif
+
+@if(auth()->user()->hasRole('admin'))
+    <div class="admin-panel">
+        Admin controls here
+    </div>
+@endif
+```
 
 ---
 
-## Advanced Notes
+## 📝 Contributing
 
-- After direct DB changes, clear cache manually
-- All relationships are polymorphic: assign permissions/roles/groups to any model (User, Employee, Client, ...)
-- Fields, relationships, and services are fully extendable
+### Before Contributing
+1. **Check existing documentation**:
+   - **[Usage Examples](docs/USAGE_EXAMPLES.md)** - Common patterns and solutions
+   - **[Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)** - Advanced usage and edge cases
+
+2. **Review the codebase** to understand the architecture
+
+3. **Test your changes** thoroughly
+
+### Reporting Issues
+- Provide detailed error messages
+- Include code examples
+- Check if the issue is covered in the documentation
 
 ---
 
-## License
+## 📄 License
 
-MIT © Eslam Faroug
+**MIT License** © Eslam Faroug
+
+---
+
+## 🆘 Need Help?
+
+- **📋 [Usage Examples](docs/USAGE_EXAMPLES.md)** - Start here for basic usage
+- **📚 [Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)** - Advanced features and patterns
+- **🐛 [Report Issues](https://github.com/eslamfaroug/laravel-permission-plus/issues)** - Bug reports and feature requests
+- **📧 [Contact Author](mailto:eslamfaroug3@gmail.com)** - Direct support
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ for the Laravel community</sub>
+</div>
