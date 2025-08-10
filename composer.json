@@ -40,5 +40,10 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+
+    "prefer-stable": true,
+    "homepage": "https://github.com/EslamFaroug/laravel-permission-plus",
+    "support": {
+        "source": "https://github.com/EslamFaroug/laravel-permission-plus"
+    }
 }

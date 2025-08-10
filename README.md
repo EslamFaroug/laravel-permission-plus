@@ -1,6 +1,11 @@
 # Laravel Permission Plus
 
+<p align="center">
+	<img src="logo.png" alt="Laravel Permission Plus Logo" width="180" />
+</p>
+
 **Author:** [Eslam Faroug](mailto:eslamfaroug3@gmail.com)
+
 
 An advanced permission, role, and group management system for Laravel (RBAC + group-based access) with multilingual support, polymorphic relationships, and caching.
 
