@@ -1,0 +1,56 @@
+# Dependency directories
+/vendor/
+/node_modules/
+
+# Environment files
+.env
+.phpunit.result.cache
+
+# IDE specific files
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+
+# Local development files
+.phpunit.cache
+.phpunit.result.cache
+coverage/
+
+# Composer
+composer.lock
+composer.phar
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing
+.phpunit.cache
+.phpunit.result.cache
+/coverage/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local development
+.env
+.phpunit.cache
+.phpunit.result.cache
+coverage/
+
+# Logs
+*.log
+
+# Build files
+build/
+dist/

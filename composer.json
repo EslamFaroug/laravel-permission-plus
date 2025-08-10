@@ -1,0 +1,44 @@
+{
+    "name": "eslamfaroug/laravel-permission-plus",
+    "description": "An advanced permission management system for Laravel with role-based access control and group management.",
+    "keywords": ["laravel", "permissions", "roles", "authorization", "acl", "rbac"],
+    "license": "MIT",
+    "version": "1.0.1",
+    "authors": [
+        {
+            "name": "Eslam Faroug",
+            "email": "eslamfaroug3@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.0",
+        "illuminate/database": "^10.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0",
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "EslamFaroug\\PermissionPlus\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EslamFaroug\\PermissionPlus\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EslamFaroug\\PermissionPlus\\Providers\\PermissionServiceProvider"
+            ],
+            "aliases": {
+                "Permission": "EslamFaroug\\PermissionPlus\\Facades\\PermissionFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
