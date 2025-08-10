@@ -60,8 +60,8 @@ This package includes comprehensive documentation organized by complexity level:
 
 | Document | Purpose | Best For |
 |----------|---------|----------|
-| **[📋 Usage Examples](docs/USAGE_EXAMPLES.md)** | Basic operations and common patterns | **Beginners** - Getting started |
-| **[📚 Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)** | Advanced features and complex scenarios | **Advanced users** - Mastering the package |
+| **[📋 Usage Examples](USAGE_EXAMPLES.md)** | Basic operations and common patterns | **Beginners** - Getting started |
+| **[📚 Comprehensive Examples](COMPREHENSIVE_EXAMPLES.md)** | Advanced features and complex scenarios | **Advanced users** - Mastering the package |
 | **[📖 README.md](README.md)** | Overview and CRUD operations | **Reference** - Quick lookups |
 
 ---
@@ -149,14 +149,14 @@ if ($user->hasPermissionTo('delete-posts')) {
 ```
 
 ### Step 3: Explore Documentation
-- **[📋 Usage Examples](docs/USAGE_EXAMPLES.md)** - Start here for basic patterns
-- **[📚 Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)** - Advanced features
+- **[📋 Usage Examples](USAGE_EXAMPLES.md)** - Start here for basic patterns
+- **[📚 Comprehensive Examples](COMPREHENSIVE_EXAMPLES.md)** - Advanced features
 
 ---
 
 ## 📋 Basic Usage Examples
 
-> 💡 **For detailed examples and common patterns, see [Usage Examples](docs/USAGE_EXAMPLES.md)**
+> 💡 **For detailed examples and common patterns, see [Usage Examples](USAGE_EXAMPLES.md)**
 
 ### User Access Control
 ```php
@@ -260,7 +260,7 @@ $deleted = $role->delete();
 
 ## 🌐 Advanced Features
 
-> 💡 **For comprehensive examples and advanced patterns, see [Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)**
+> 💡 **For comprehensive examples and advanced patterns, see [Comprehensive Examples](COMPREHENSIVE_EXAMPLES.md)**
 
 ### Multilingual Support
 ```php
@@ -373,8 +373,8 @@ Route::middleware(['auth'])->group(function () {
 
 ### Before Contributing
 1. **Check existing documentation**:
-   - **[Usage Examples](docs/USAGE_EXAMPLES.md)** - Common patterns and solutions
-   - **[Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)** - Advanced usage and edge cases
+   - **[Usage Examples](USAGE_EXAMPLES.md)** - Common patterns and solutions
+   - **[Comprehensive Examples](COMPREHENSIVE_EXAMPLES.md)** - Advanced usage and edge cases
 
 2. **Review the codebase** to understand the architecture
 
@@ -395,8 +395,8 @@ Route::middleware(['auth'])->group(function () {
 
 ## 🆘 Need Help?
 
-- **📋 [Usage Examples](docs/USAGE_EXAMPLES.md)** - Start here for basic usage
-- **📚 [Comprehensive Examples](docs/COMPREHENSIVE_EXAMPLES.md)** - Advanced features and patterns
+- **📋 [Usage Examples](USAGE_EXAMPLES.md)** - Start here for basic usage
+- **📚 [Comprehensive Examples](COMPREHENSIVE_EXAMPLES.md)** - Advanced features and patterns
 - **🐛 [Report Issues](https://github.com/eslamfaroug/laravel-permission-plus/issues)** - Bug reports and feature requests
 - **📧 [Contact Author](mailto:eslamfaroug3@gmail.com)** - Direct support
 
