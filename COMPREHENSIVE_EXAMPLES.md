@@ -1,7 +1,7 @@
 # Laravel Permission Plus - Comprehensive Examples
 
 <p align="center">
-	<img src="../logo.png" alt="Laravel Permission Plus Logo" width="180" />
+	<img src="logo.png" alt="Laravel Permission Plus Logo" width="180" />
 </p>
 
 This document provides comprehensive examples of how to use Laravel Permission Plus package for managing permissions, roles, groups, and guards in your Laravel application.

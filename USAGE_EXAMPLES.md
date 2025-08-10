@@ -2,7 +2,7 @@
 # Laravel Permission Plus - Usage Examples
 
 <p align="center">
-	<img src="../logo.png" alt="Laravel Permission Plus Logo" width="180" />
+	<img src="logo.png" alt="Laravel Permission Plus Logo" width="180" />
 </p>
 
 This document provides practical examples of how to use Laravel Permission Plus package for common access control scenarios.
